@@ -1,6 +1,6 @@
-import { useScrollToTop } from "@react-navigation/native"
-import { StatusBar, StatusBarProps, StatusBarStyle } from "expo-status-bar"
-import { ReactNode, useRef, useState } from "react"
+import { useScrollToTop } from '@react-navigation/native'
+import { StatusBar, StatusBarProps, StatusBarStyle } from 'expo-status-bar'
+import { ReactNode, useRef, useState } from 'react'
 import {
   KeyboardAvoidingView,
   KeyboardAvoidingViewProps,
@@ -10,12 +10,12 @@ import {
   ScrollViewProps,
   StyleProp,
   View,
-  ViewStyle,
-} from "react-native"
-import { $styles } from "../theme"
-import { ExtendedEdge, useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
-import { KeyboardAwareScrollView } from "react-native-keyboard-controller"
-import { useAppTheme } from "@/utils/useAppTheme"
+  ViewStyle
+} from 'react-native'
+import { $styles } from '../theme'
+import { ExtendedEdge, useSafeAreaInsetsStyle } from '../utils/useSafeAreaInsetsStyle'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
+import { useAppTheme } from '@/utils/useAppTheme'
 
 export const DEFAULT_BOTTOM_OFFSET = 50
 
@@ -63,23 +63,23 @@ interface BaseScreenProps {
 }
 
 interface FixedScreenProps extends BaseScreenProps {
-  preset?: "fixed"
+  preset?: 'fixed'
 }
 interface ScrollScreenProps extends BaseScreenProps {
-  preset?: "scroll"
+  preset?: 'scroll'
   /**
    * Should keyboard persist on screen tap. Defaults to handled.
    * Only applies to scroll preset.
    */
-  keyboardShouldPersistTaps?: "handled" | "always" | "never"
+  keyboardShouldPersistTaps?: 'handled' | 'always' | 'never'
   /**
    * Pass any additional props directly to the ScrollView component.
    */
   ScrollViewProps?: ScrollViewProps
 }
 
-interface AutoScreenProps extends Omit<ScrollScreenProps, "preset"> {
-  preset?: "auto"
+interface AutoScreenProps extends Omit<ScrollScreenProps, 'preset'> {
+  preset?: 'auto'
   /**
    * Threshold to trigger the automatic disabling/enabling of scroll ability.
    * Defaults to `{ percent: 0.92 }`.
@@ -89,16 +89,16 @@ interface AutoScreenProps extends Omit<ScrollScreenProps, "preset"> {
 
 export type ScreenProps = ScrollScreenProps | FixedScreenProps | AutoScreenProps
 
-const isIos = Platform.OS === "ios"
+const isIos = Platform.OS === 'ios'
 
-type ScreenPreset = "fixed" | "scroll" | "auto"
+type ScreenPreset = 'fixed' | 'scroll' | 'auto'
 
 /**
  * @param {ScreenPreset?} preset - The preset to check.
  * @returns {boolean} - Whether the preset is non-scrolling.
  */
 function isNonScrolling(preset?: ScreenPreset) {
-  return !preset || preset === "fixed"
+  return !preset || preset === 'fixed'
 }
 
 /**
@@ -158,12 +158,12 @@ function useAutoPreset(props: AutoScreenProps): {
   }
 
   // update scroll state on every render
-  if (preset === "auto") updateScrollState()
+  if (preset === 'auto') updateScrollState()
 
   return {
-    scrollEnabled: preset === "auto" ? scrollEnabled : true,
+    scrollEnabled: preset === 'auto' ? scrollEnabled : true,
     onContentSizeChange,
-    onLayout,
+    onLayout
   }
 }
 
@@ -175,7 +175,7 @@ function ScreenWithoutScrolling(props: ScreenProps) {
   const { style, contentContainerStyle, children, preset } = props
   return (
     <View style={[$outerStyle, style]}>
-      <View style={[$innerStyle, preset === "fixed" && $justifyFlexEnd, contentContainerStyle]}>
+      <View style={[$innerStyle, preset === 'fixed' && $justifyFlexEnd, contentContainerStyle]}>
         {children}
       </View>
     </View>
@@ -189,11 +189,11 @@ function ScreenWithoutScrolling(props: ScreenProps) {
 function ScreenWithScrolling(props: ScreenProps) {
   const {
     children,
-    keyboardShouldPersistTaps = "handled",
+    keyboardShouldPersistTaps = 'handled',
     keyboardBottomOffset = DEFAULT_BOTTOM_OFFSET,
     contentContainerStyle,
     ScrollViewProps,
-    style,
+    style
   } = props as ScrollScreenProps
 
   const ref = useRef<ScrollView>(null)
@@ -209,7 +209,7 @@ function ScreenWithScrolling(props: ScreenProps) {
       bottomOffset={keyboardBottomOffset}
       {...{ keyboardShouldPersistTaps, scrollEnabled, ref }}
       {...ScrollViewProps}
-      onLayout={(e) => {
+      onLayout={e => {
         onLayout(e)
         ScrollViewProps?.onLayout?.(e)
       }}
@@ -221,7 +221,7 @@ function ScreenWithScrolling(props: ScreenProps) {
       contentContainerStyle={[
         $innerStyle,
         ScrollViewProps?.contentContainerStyle,
-        contentContainerStyle,
+        contentContainerStyle
       ]}
     >
       {children}
@@ -240,7 +240,7 @@ function ScreenWithScrolling(props: ScreenProps) {
 export function Screen(props: ScreenProps) {
   const {
     theme: { colors },
-    themeContext,
+    themeContext
   } = useAppTheme()
   const {
     backgroundColor,
@@ -248,7 +248,7 @@ export function Screen(props: ScreenProps) {
     keyboardOffset = 0,
     safeAreaEdges,
     StatusBarProps,
-    statusBarStyle,
+    statusBarStyle
   } = props
 
   const $containerInsets = useSafeAreaInsetsStyle(safeAreaEdges)
@@ -258,16 +258,16 @@ export function Screen(props: ScreenProps) {
       style={[
         $containerStyle,
         { backgroundColor: backgroundColor || colors.background },
-        $containerInsets,
+        $containerInsets
       ]}
     >
       <StatusBar
-        style={statusBarStyle || (themeContext === "dark" ? "light" : "dark")}
+        style={statusBarStyle || (themeContext === 'dark' ? 'light' : 'dark')}
         {...StatusBarProps}
       />
 
       <KeyboardAvoidingView
-        behavior={isIos ? "padding" : "height"}
+        behavior={isIos ? 'padding' : 'height'}
         keyboardVerticalOffset={keyboardOffset}
         {...KeyboardAvoidingViewProps}
         style={[$styles.flex1, KeyboardAvoidingViewProps?.style]}
@@ -284,21 +284,21 @@ export function Screen(props: ScreenProps) {
 
 const $containerStyle: ViewStyle = {
   flex: 1,
-  height: "100%",
-  width: "100%",
+  height: '100%',
+  width: '100%'
 }
 
 const $outerStyle: ViewStyle = {
   flex: 1,
-  height: "100%",
-  width: "100%",
+  height: '100%',
+  width: '100%'
 }
 
 const $justifyFlexEnd: ViewStyle = {
-  justifyContent: "flex-end",
+  justifyContent: 'flex-end'
 }
 
 const $innerStyle: ViewStyle = {
-  justifyContent: "flex-start",
-  alignItems: "stretch",
+  justifyContent: 'flex-start',
+  alignItems: 'stretch'
 }

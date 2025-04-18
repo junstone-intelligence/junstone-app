@@ -1,39 +1,39 @@
 /* eslint-disable react/jsx-key, react-native/no-inline-styles */
-import { TextStyle, View, ViewStyle } from "react-native"
-import { Header, Icon } from "../../../components"
-import { $styles } from "../../../theme"
-import { Demo } from "../DemoShowroomScreen"
-import { DemoDivider } from "../DemoDivider"
-import { DemoUseCase } from "../DemoUseCase"
-import type { ThemedStyle } from "@/theme"
+import { TextStyle, View, ViewStyle } from 'react-native'
+import { Header, Icon } from '../../../components'
+import { $styles } from '../../../theme'
+import { Demo } from '../DemoShowroomScreen'
+import { DemoDivider } from '../DemoDivider'
+import { DemoUseCase } from '../DemoUseCase'
+import type { ThemedStyle } from '@/theme'
 
 const $rightAlignTitle: TextStyle = {
-  textAlign: "right",
+  textAlign: 'right'
 }
 
 const $customLeftAction: ThemedStyle<ViewStyle> = ({ colors }) => ({
   backgroundColor: colors.error,
   flexGrow: 0,
   flexBasis: 100,
-  height: "100%",
-  flexWrap: "wrap",
-  overflow: "hidden",
+  height: '100%',
+  flexWrap: 'wrap',
+  overflow: 'hidden'
 })
 
 const $customTitle: ThemedStyle<TextStyle> = ({ colors }) => ({
-  textDecorationLine: "underline line-through",
-  textDecorationStyle: "dashed",
+  textDecorationLine: 'underline line-through',
+  textDecorationStyle: 'dashed',
   color: colors.error,
-  textDecorationColor: colors.error,
+  textDecorationColor: colors.error
 })
 
 const $customWhiteTitle: ThemedStyle<TextStyle> = ({ colors }) => ({
-  color: colors.palette.neutral100,
+  color: colors.palette.neutral100
 })
 
 export const DemoHeader: Demo = {
-  name: "Header",
-  description: "demoHeader:description",
+  name: 'Header',
+  description: 'demoHeader:description',
   data: ({ theme, themed }) => [
     <DemoUseCase
       name="demoHeader:useCase.actionIcons.name"
@@ -86,7 +86,7 @@ export const DemoHeader: Demo = {
         titleStyle={$rightAlignTitle}
         LeftActionComponent={
           <View style={themed([$styles.row, $customLeftAction])}>
-            {Array.from({ length: 20 }, (x, i) => i).map((i) => (
+            {Array.from({ length: 20 }, (x, i) => i).map(i => (
               <Icon key={i} icon="ladybug" color={theme.colors.palette.neutral100} size={20} />
             ))}
           </View>
@@ -141,6 +141,6 @@ export const DemoHeader: Demo = {
         leftIconColor={theme.colors.palette.neutral100}
         safeAreaEdges={[]}
       />
-    </DemoUseCase>,
-  ],
+    </DemoUseCase>
+  ]
 }

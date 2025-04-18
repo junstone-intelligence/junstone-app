@@ -1,10 +1,10 @@
-import { useEffect, useRef } from "react"
-import { StyleProp, View, ViewStyle, Animated } from "react-native"
-import { $styles } from "../../theme"
-import { $inputOuterBase, BaseToggleInputProps, ToggleProps, Toggle } from "./Toggle"
-import { useAppTheme } from "@/utils/useAppTheme"
+import { useEffect, useRef } from 'react'
+import { StyleProp, View, ViewStyle, Animated } from 'react-native'
+import { $styles } from '../../theme'
+import { $inputOuterBase, BaseToggleInputProps, ToggleProps, Toggle } from './Toggle'
+import { useAppTheme } from '@/utils/useAppTheme'
 
-export interface RadioToggleProps extends Omit<ToggleProps<RadioInputProps>, "ToggleInput"> {
+export interface RadioToggleProps extends Omit<ToggleProps<RadioInputProps>, 'ToggleInput'> {
   /**
    * Optional style prop that affects the dot View.
    */
@@ -29,11 +29,11 @@ function RadioInput(props: RadioInputProps) {
     disabled,
     outerStyle: $outerStyleOverride,
     innerStyle: $innerStyleOverride,
-    detailStyle: $detailStyleOverride,
+    detailStyle: $detailStyleOverride
   } = props
 
   const {
-    theme: { colors },
+    theme: { colors }
   } = useAppTheme()
 
   const opacity = useRef(new Animated.Value(0))
@@ -42,33 +42,33 @@ function RadioInput(props: RadioInputProps) {
     Animated.timing(opacity.current, {
       toValue: on ? 1 : 0,
       duration: 300,
-      useNativeDriver: true,
+      useNativeDriver: true
     }).start()
   }, [on])
 
   const offBackgroundColor = [
     disabled && colors.palette.neutral400,
-    status === "error" && colors.errorBackground,
-    colors.palette.neutral200,
+    status === 'error' && colors.errorBackground,
+    colors.palette.neutral200
   ].filter(Boolean)[0]
 
   const outerBorderColor = [
     disabled && colors.palette.neutral400,
-    status === "error" && colors.error,
+    status === 'error' && colors.error,
     !on && colors.palette.neutral800,
-    colors.palette.secondary500,
+    colors.palette.secondary500
   ].filter(Boolean)[0]
 
   const onBackgroundColor = [
     disabled && colors.transparent,
-    status === "error" && colors.errorBackground,
-    colors.palette.neutral100,
+    status === 'error' && colors.errorBackground,
+    colors.palette.neutral100
   ].filter(Boolean)[0]
 
   const dotBackgroundColor = [
     disabled && colors.palette.neutral600,
-    status === "error" && colors.error,
-    colors.palette.secondary500,
+    status === 'error' && colors.error,
+    colors.palette.secondary500
   ].filter(Boolean)[0]
 
   return (
@@ -76,7 +76,7 @@ function RadioInput(props: RadioInputProps) {
       style={[
         $inputOuter,
         { backgroundColor: offBackgroundColor, borderColor: outerBorderColor },
-        $outerStyleOverride,
+        $outerStyleOverride
       ]}
     >
       <Animated.View
@@ -84,7 +84,7 @@ function RadioInput(props: RadioInputProps) {
           $styles.toggleInner,
           { backgroundColor: onBackgroundColor },
           $innerStyleOverride,
-          { opacity: opacity.current },
+          { opacity: opacity.current }
         ]}
       >
         <View
@@ -98,7 +98,7 @@ function RadioInput(props: RadioInputProps) {
 const $radioDetail: ViewStyle = {
   width: 12,
   height: 12,
-  borderRadius: 6,
+  borderRadius: 6
 }
 
 const $inputOuter: StyleProp<ViewStyle> = [$inputOuterBase, { borderRadius: 12 }]

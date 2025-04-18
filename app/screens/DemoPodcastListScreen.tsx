@@ -1,5 +1,5 @@
-import { observer } from "mobx-react-lite"
-import { ComponentType, FC, useCallback, useEffect, useMemo, useState } from "react"
+import { observer } from 'mobx-react-lite'
+import { ComponentType, FC, useCallback, useEffect, useMemo, useState } from 'react'
 import {
   AccessibilityProps,
   ActivityIndicator,
@@ -10,16 +10,16 @@ import {
   StyleSheet,
   TextStyle,
   View,
-  ViewStyle,
-} from "react-native"
-import { type ContentStyle } from "@shopify/flash-list"
+  ViewStyle
+} from 'react-native'
+import { type ContentStyle } from '@shopify/flash-list'
 import Animated, {
   Extrapolation,
   interpolate,
   useAnimatedStyle,
   useSharedValue,
-  withSpring,
-} from "react-native-reanimated"
+  withSpring
+} from 'react-native-reanimated'
 import {
   Button,
   ButtonAccessoryProps,
@@ -29,26 +29,26 @@ import {
   ListView,
   Screen,
   Switch,
-  Text,
-} from "@/components"
-import { isRTL, translate } from "@/i18n"
-import { useStores } from "../models"
-import { Episode } from "../models/Episode"
-import { DemoTabScreenProps } from "../navigators/DemoNavigator"
-import type { ThemedStyle } from "@/theme"
-import { $styles } from "../theme"
-import { delay } from "../utils/delay"
-import { openLinkInBrowser } from "../utils/openLinkInBrowser"
-import { useAppTheme } from "@/utils/useAppTheme"
+  Text
+} from '@/components'
+import { isRTL, translate } from '@/i18n'
+import { useStores } from '../models'
+import { Episode } from '../models/Episode'
+import { DemoTabScreenProps } from '../navigators/DemoNavigator'
+import type { ThemedStyle } from '@/theme'
+import { $styles } from '../theme'
+import { delay } from '../utils/delay'
+import { openLinkInBrowser } from '../utils/openLinkInBrowser'
+import { useAppTheme } from '@/utils/useAppTheme'
 
 const ICON_SIZE = 14
 
-const rnrImage1 = require("../../assets/images/demo/rnr-image-1.png")
-const rnrImage2 = require("../../assets/images/demo/rnr-image-2.png")
-const rnrImage3 = require("../../assets/images/demo/rnr-image-3.png")
+const rnrImage1 = require('../../assets/images/demo/rnr-image-1.png')
+const rnrImage2 = require('../../assets/images/demo/rnr-image-2.png')
+const rnrImage3 = require('../../assets/images/demo/rnr-image-3.png')
 const rnrImages = [rnrImage1, rnrImage2, rnrImage3]
 
-export const DemoPodcastListScreen: FC<DemoTabScreenProps<"DemoPodcastList">> = observer(
+export const DemoPodcastListScreen: FC<DemoTabScreenProps<'DemoPodcastList'>> = observer(
   function DemoPodcastListScreen(_props) {
     const { episodeStore } = useStores()
     const { themed } = useAppTheme()
@@ -73,7 +73,7 @@ export const DemoPodcastListScreen: FC<DemoTabScreenProps<"DemoPodcastList">> = 
     }
 
     return (
-      <Screen preset="fixed" safeAreaEdges={["top"]} contentContainerStyle={$styles.flex1}>
+      <Screen preset="fixed" safeAreaEdges={['top']} contentContainerStyle={$styles.flex1}>
         <ListView<Episode>
           contentContainerStyle={themed([$styles.container, $listContentContainer])}
           data={episodeStore.episodesForList.slice()}
@@ -90,18 +90,18 @@ export const DemoPodcastListScreen: FC<DemoTabScreenProps<"DemoPodcastList">> = 
                 style={themed($emptyState)}
                 headingTx={
                   episodeStore.favoritesOnly
-                    ? "demoPodcastListScreen:noFavoritesEmptyState.heading"
+                    ? 'demoPodcastListScreen:noFavoritesEmptyState.heading'
                     : undefined
                 }
                 contentTx={
                   episodeStore.favoritesOnly
-                    ? "demoPodcastListScreen:noFavoritesEmptyState.content"
+                    ? 'demoPodcastListScreen:noFavoritesEmptyState.content'
                     : undefined
                 }
-                button={episodeStore.favoritesOnly ? "" : undefined}
+                button={episodeStore.favoritesOnly ? '' : undefined}
                 buttonOnPress={manualRefresh}
                 imageStyle={$emptyStateImage}
-                ImageProps={{ resizeMode: "contain" }}
+                ImageProps={{ resizeMode: 'contain' }}
               />
             )
           }
@@ -113,12 +113,12 @@ export const DemoPodcastListScreen: FC<DemoTabScreenProps<"DemoPodcastList">> = 
                   <Switch
                     value={episodeStore.favoritesOnly}
                     onValueChange={() =>
-                      episodeStore.setProp("favoritesOnly", !episodeStore.favoritesOnly)
+                      episodeStore.setProp('favoritesOnly', !episodeStore.favoritesOnly)
                     }
                     labelTx="demoPodcastListScreen:onlyFavorites"
                     labelPosition="left"
                     labelStyle={$labelStyle}
-                    accessibilityLabel={translate("demoPodcastListScreen:accessibility.switch")}
+                    accessibilityLabel={translate('demoPodcastListScreen:accessibility.switch')}
                   />
                 </View>
               )}
@@ -134,13 +134,13 @@ export const DemoPodcastListScreen: FC<DemoTabScreenProps<"DemoPodcastList">> = 
         />
       </Screen>
     )
-  },
+  }
 )
 
 const EpisodeCard = observer(function EpisodeCard({
   episode,
   isFavorite,
-  onPressFavorite,
+  onPressFavorite
 }: {
   episode: Episode
   onPressFavorite: () => void
@@ -148,7 +148,7 @@ const EpisodeCard = observer(function EpisodeCard({
 }) {
   const {
     theme: { colors },
-    themed,
+    themed
   } = useAppTheme()
 
   const liked = useSharedValue(isFavorite ? 1 : 0)
@@ -161,10 +161,10 @@ const EpisodeCard = observer(function EpisodeCard({
     return {
       transform: [
         {
-          scale: interpolate(liked.value, [0, 1], [1, 0], Extrapolation.EXTEND),
-        },
+          scale: interpolate(liked.value, [0, 1], [1, 0], Extrapolation.EXTEND)
+        }
       ],
-      opacity: interpolate(liked.value, [0, 1], [1, 0], Extrapolation.CLAMP),
+      opacity: interpolate(liked.value, [0, 1], [1, 0], Extrapolation.CLAMP)
     }
   })
 
@@ -173,10 +173,10 @@ const EpisodeCard = observer(function EpisodeCard({
     return {
       transform: [
         {
-          scale: liked.value,
-        },
+          scale: liked.value
+        }
       ],
-      opacity: liked.value,
+      opacity: liked.value
     }
   })
 
@@ -194,26 +194,26 @@ const EpisodeCard = observer(function EpisodeCard({
       Platform.select<AccessibilityProps>({
         ios: {
           accessibilityLabel: episode.title,
-          accessibilityHint: translate("demoPodcastListScreen:accessibility.cardHint", {
-            action: isFavorite ? "unfavorite" : "favorite",
-          }),
+          accessibilityHint: translate('demoPodcastListScreen:accessibility.cardHint', {
+            action: isFavorite ? 'unfavorite' : 'favorite'
+          })
         },
         android: {
           accessibilityLabel: episode.title,
           accessibilityActions: [
             {
-              name: "longpress",
-              label: translate("demoPodcastListScreen:accessibility.favoriteAction"),
-            },
+              name: 'longpress',
+              label: translate('demoPodcastListScreen:accessibility.favoriteAction')
+            }
           ],
           onAccessibilityAction: ({ nativeEvent }) => {
-            if (nativeEvent.actionName === "longpress") {
+            if (nativeEvent.actionName === 'longpress') {
               handlePressFavorite()
             }
-          },
-        },
+          }
+        }
       }),
-    [episode.title, handlePressFavorite, isFavorite],
+    [episode.title, handlePressFavorite, isFavorite]
   )
 
   const handlePressCard = () => {
@@ -230,7 +230,7 @@ const EpisodeCard = observer(function EpisodeCard({
                 $styles.row,
                 themed($iconContainer),
                 StyleSheet.absoluteFill,
-                animatedLikeButtonStyles,
+                animatedLikeButtonStyles
               ]}
             >
               <Icon
@@ -251,7 +251,7 @@ const EpisodeCard = observer(function EpisodeCard({
           </View>
         )
       },
-    [animatedLikeButtonStyles, animatedUnlikeButtonStyles, colors, themed],
+    [animatedLikeButtonStyles, animatedUnlikeButtonStyles, colors, themed]
   )
 
   return (
@@ -288,8 +288,8 @@ const EpisodeCard = observer(function EpisodeCard({
           style={themed([$favoriteButton, isFavorite && $unFavoriteButton])}
           accessibilityLabel={
             isFavorite
-              ? translate("demoPodcastListScreen:accessibility.unfavoriteIcon")
-              : translate("demoPodcastListScreen:accessibility.favoriteIcon")
+              ? translate('demoPodcastListScreen:accessibility.unfavoriteIcon')
+              : translate('demoPodcastListScreen:accessibility.favoriteIcon')
           }
           LeftAccessory={ButtonLeftAccessory}
         >
@@ -299,8 +299,8 @@ const EpisodeCard = observer(function EpisodeCard({
             weight="medium"
             text={
               isFavorite
-                ? translate("demoPodcastListScreen:unfavoriteButton")
-                : translate("demoPodcastListScreen:favoriteButton")
+                ? translate('demoPodcastListScreen:unfavoriteButton')
+                : translate('demoPodcastListScreen:favoriteButton')
             }
           />
         </Button>
@@ -313,74 +313,74 @@ const EpisodeCard = observer(function EpisodeCard({
 const $listContentContainer: ThemedStyle<ContentStyle> = ({ spacing }) => ({
   paddingHorizontal: spacing.lg,
   paddingTop: spacing.lg + spacing.xl,
-  paddingBottom: spacing.lg,
+  paddingBottom: spacing.lg
 })
 
 const $heading: ThemedStyle<ViewStyle> = ({ spacing }) => ({
-  marginBottom: spacing.md,
+  marginBottom: spacing.md
 })
 
 const $item: ThemedStyle<ViewStyle> = ({ colors, spacing }) => ({
   padding: spacing.md,
   marginTop: spacing.md,
   minHeight: 120,
-  backgroundColor: colors.palette.neutral100,
+  backgroundColor: colors.palette.neutral100
 })
 
 const $itemThumbnail: ThemedStyle<ImageStyle> = ({ spacing }) => ({
   marginTop: spacing.sm,
   borderRadius: 50,
-  alignSelf: "flex-start",
+  alignSelf: 'flex-start'
 })
 
 const $toggle: ThemedStyle<ViewStyle> = ({ spacing }) => ({
-  marginTop: spacing.md,
+  marginTop: spacing.md
 })
 
 const $labelStyle: TextStyle = {
-  textAlign: "left",
+  textAlign: 'left'
 }
 
 const $iconContainer: ThemedStyle<ViewStyle> = ({ spacing }) => ({
   height: ICON_SIZE,
   width: ICON_SIZE,
-  marginEnd: spacing.sm,
+  marginEnd: spacing.sm
 })
 
 const $metadata: ThemedStyle<TextStyle> = ({ colors, spacing }) => ({
   color: colors.textDim,
-  marginTop: spacing.xs,
+  marginTop: spacing.xs
 })
 
 const $metadataText: ThemedStyle<TextStyle> = ({ colors, spacing }) => ({
   color: colors.textDim,
   marginEnd: spacing.md,
-  marginBottom: spacing.xs,
+  marginBottom: spacing.xs
 })
 
 const $favoriteButton: ThemedStyle<ViewStyle> = ({ colors, spacing }) => ({
   borderRadius: 17,
   marginTop: spacing.md,
-  justifyContent: "flex-start",
+  justifyContent: 'flex-start',
   backgroundColor: colors.palette.neutral300,
   borderColor: colors.palette.neutral300,
   paddingHorizontal: spacing.md,
   paddingTop: spacing.xxxs,
   paddingBottom: 0,
   minHeight: 32,
-  alignSelf: "flex-start",
+  alignSelf: 'flex-start'
 })
 
 const $unFavoriteButton: ThemedStyle<ViewStyle> = ({ colors }) => ({
   borderColor: colors.palette.primary100,
-  backgroundColor: colors.palette.primary100,
+  backgroundColor: colors.palette.primary100
 })
 
 const $emptyState: ThemedStyle<ViewStyle> = ({ spacing }) => ({
-  marginTop: spacing.xxl,
+  marginTop: spacing.xxl
 })
 
 const $emptyStateImage: ImageStyle = {
-  transform: [{ scaleX: isRTL ? -1 : 1 }],
+  transform: [{ scaleX: isRTL ? -1 : 1 }]
 }
 // #endregion

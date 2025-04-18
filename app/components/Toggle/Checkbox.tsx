@@ -1,11 +1,11 @@
-import { useEffect, useRef, useCallback } from "react"
-import { Image, ImageStyle, Animated, StyleProp, View, ViewStyle } from "react-native"
-import { $styles } from "../../theme"
-import { iconRegistry, IconTypes } from "../Icon"
-import { $inputOuterBase, BaseToggleInputProps, ToggleProps, Toggle } from "./Toggle"
-import { useAppTheme } from "@/utils/useAppTheme"
+import { useEffect, useRef, useCallback } from 'react'
+import { Image, ImageStyle, Animated, StyleProp, View, ViewStyle } from 'react-native'
+import { $styles } from '../../theme'
+import { iconRegistry, IconTypes } from '../Icon'
+import { $inputOuterBase, BaseToggleInputProps, ToggleProps, Toggle } from './Toggle'
+import { useAppTheme } from '@/utils/useAppTheme'
 
-export interface CheckboxToggleProps extends Omit<ToggleProps<CheckboxInputProps>, "ToggleInput"> {
+export interface CheckboxToggleProps extends Omit<ToggleProps<CheckboxInputProps>, 'ToggleInput'> {
   /**
    * Optional style prop that affects the Image component.
    */
@@ -17,7 +17,7 @@ export interface CheckboxToggleProps extends Omit<ToggleProps<CheckboxInputProps
 }
 
 interface CheckboxInputProps extends BaseToggleInputProps<CheckboxToggleProps> {
-  icon?: CheckboxToggleProps["icon"]
+  icon?: CheckboxToggleProps['icon']
 }
 /**
  * @param {CheckboxToggleProps} props - The props for the `Checkbox` component.
@@ -28,7 +28,7 @@ export function Checkbox(props: CheckboxToggleProps) {
   const { icon, ...rest } = props
   const checkboxInput = useCallback(
     (toggleProps: CheckboxInputProps) => <CheckboxInput {...toggleProps} icon={icon} />,
-    [icon],
+    [icon]
   )
   return <Toggle accessibilityRole="checkbox" {...rest} ToggleInput={checkboxInput} />
 }
@@ -38,14 +38,14 @@ function CheckboxInput(props: CheckboxInputProps) {
     on,
     status,
     disabled,
-    icon = "check",
+    icon = 'check',
     outerStyle: $outerStyleOverride,
     innerStyle: $innerStyleOverride,
-    detailStyle: $detailStyleOverride,
+    detailStyle: $detailStyleOverride
   } = props
 
   const {
-    theme: { colors },
+    theme: { colors }
   } = useAppTheme()
 
   const opacity = useRef(new Animated.Value(0))
@@ -54,33 +54,33 @@ function CheckboxInput(props: CheckboxInputProps) {
     Animated.timing(opacity.current, {
       toValue: on ? 1 : 0,
       duration: 300,
-      useNativeDriver: true,
+      useNativeDriver: true
     }).start()
   }, [on])
 
   const offBackgroundColor = [
     disabled && colors.palette.neutral400,
-    status === "error" && colors.errorBackground,
-    colors.palette.neutral200,
+    status === 'error' && colors.errorBackground,
+    colors.palette.neutral200
   ].filter(Boolean)[0]
 
   const outerBorderColor = [
     disabled && colors.palette.neutral400,
-    status === "error" && colors.error,
+    status === 'error' && colors.error,
     !on && colors.palette.neutral800,
-    colors.palette.secondary500,
+    colors.palette.secondary500
   ].filter(Boolean)[0]
 
   const onBackgroundColor = [
     disabled && colors.transparent,
-    status === "error" && colors.errorBackground,
-    colors.palette.secondary500,
+    status === 'error' && colors.errorBackground,
+    colors.palette.secondary500
   ].filter(Boolean)[0]
 
   const iconTintColor = [
     disabled && colors.palette.neutral600,
-    status === "error" && colors.error,
-    colors.palette.accent100,
+    status === 'error' && colors.error,
+    colors.palette.accent100
   ].filter(Boolean)[0]
 
   return (
@@ -88,7 +88,7 @@ function CheckboxInput(props: CheckboxInputProps) {
       style={[
         $inputOuter,
         { backgroundColor: offBackgroundColor, borderColor: outerBorderColor },
-        $outerStyleOverride,
+        $outerStyleOverride
       ]}
     >
       <Animated.View
@@ -96,7 +96,7 @@ function CheckboxInput(props: CheckboxInputProps) {
           $styles.toggleInner,
           { backgroundColor: onBackgroundColor },
           $innerStyleOverride,
-          { opacity: opacity.current },
+          { opacity: opacity.current }
         ]}
       >
         <Image
@@ -104,7 +104,7 @@ function CheckboxInput(props: CheckboxInputProps) {
           style={[
             $checkboxDetail,
             !!iconTintColor && { tintColor: iconTintColor },
-            $detailStyleOverride,
+            $detailStyleOverride
           ]}
         />
       </Animated.View>
@@ -115,7 +115,7 @@ function CheckboxInput(props: CheckboxInputProps) {
 const $checkboxDetail: ImageStyle = {
   width: 20,
   height: 20,
-  resizeMode: "contain",
+  resizeMode: 'contain'
 }
 
 const $inputOuter: StyleProp<ViewStyle> = [$inputOuterBase, { borderRadius: 4 }]

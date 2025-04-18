@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-key, react-native/no-inline-styles */
-import { AutoImage, Button, Card, Icon } from "../../../components"
-import { Demo } from "../DemoShowroomScreen"
-import { DemoDivider } from "../DemoDivider"
-import { DemoUseCase } from "../DemoUseCase"
+import { AutoImage, Button, Card, Icon } from '../../../components'
+import { Demo } from '../DemoShowroomScreen'
+import { DemoDivider } from '../DemoDivider'
+import { DemoUseCase } from '../DemoUseCase'
 
 export const DemoCard: Demo = {
-  name: "Card",
-  description: "demoCard:description",
+  name: 'Card',
+  description: 'demoCard:description',
   data: ({ theme }) => [
     <DemoUseCase
       name="demoCard:useCase.presets.name"
@@ -77,11 +77,11 @@ export const DemoCard: Demo = {
       <Card
         preset="reversed"
         headingTx="demoShowroomScreen:demoViaSpecifiedTxProp"
-        headingTxOptions={{ prop: "heading" }}
+        headingTxOptions={{ prop: 'heading' }}
         contentTx="demoShowroomScreen:demoViaSpecifiedTxProp"
-        contentTxOptions={{ prop: "content" }}
+        contentTxOptions={{ prop: 'content' }}
         footerTx="demoShowroomScreen:demoViaSpecifiedTxProp"
-        footerTxOptions={{ prop: "footer" }}
+        footerTxOptions={{ prop: 'footer' }}
       />
     </DemoUseCase>,
 
@@ -94,21 +94,21 @@ export const DemoCard: Demo = {
           <Button
             preset="reversed"
             text="HeadingComponent"
-            LeftAccessory={(props) => <Icon style={props.style} icon="ladybug" />}
+            LeftAccessory={props => <Icon style={props.style} icon="ladybug" />}
           />
         }
         ContentComponent={
           <Button
             style={{ marginVertical: theme.spacing.sm }}
             text="ContentComponent"
-            LeftAccessory={(props) => <Icon style={props.style} icon="ladybug" />}
+            LeftAccessory={props => <Icon style={props.style} icon="ladybug" />}
           />
         }
         FooterComponent={
           <Button
             preset="reversed"
             text="FooterComponent"
-            LeftAccessory={(props) => <Icon style={props.style} icon="ladybug" />}
+            LeftAccessory={props => <Icon style={props.style} icon="ladybug" />}
           />
         }
       />
@@ -120,9 +120,9 @@ export const DemoCard: Demo = {
           <AutoImage
             maxWidth={80}
             maxHeight={60}
-            style={{ alignSelf: "center" }}
+            style={{ alignSelf: 'center' }}
             source={{
-              uri: "https://user-images.githubusercontent.com/1775841/184508739-f90d0ce5-7219-42fd-a91f-3382d016eae0.png",
+              uri: 'https://user-images.githubusercontent.com/1775841/184508739-f90d0ce5-7219-42fd-a91f-3382d016eae0.png'
             }}
           />
         }
@@ -136,9 +136,9 @@ export const DemoCard: Demo = {
           <AutoImage
             maxWidth={80}
             maxHeight={60}
-            style={{ alignSelf: "center" }}
+            style={{ alignSelf: 'center' }}
             source={{
-              uri: "https://user-images.githubusercontent.com/1775841/184508739-f90d0ce5-7219-42fd-a91f-3382d016eae0.png",
+              uri: 'https://user-images.githubusercontent.com/1775841/184508739-f90d0ce5-7219-42fd-a91f-3382d016eae0.png'
             }}
           />
         }
@@ -155,21 +155,21 @@ export const DemoCard: Demo = {
         contentTx="demoCard:useCase.style.content"
         contentStyle={{
           backgroundColor: theme.colors.error,
-          color: theme.colors.palette.neutral100,
+          color: theme.colors.palette.neutral100
         }}
         footerTx="demoCard:useCase.style.footer"
         footerStyle={{
-          textDecorationLine: "underline line-through",
-          textDecorationStyle: "dashed",
+          textDecorationLine: 'underline line-through',
+          textDecorationStyle: 'dashed',
           color: theme.colors.error,
-          textDecorationColor: theme.colors.error,
+          textDecorationColor: theme.colors.error
         }}
         style={{
           shadowRadius: 5,
           shadowColor: theme.colors.error,
-          shadowOpacity: 0.5,
+          shadowOpacity: 0.5
         }}
       />
-    </DemoUseCase>,
-  ],
+    </DemoUseCase>
+  ]
 }

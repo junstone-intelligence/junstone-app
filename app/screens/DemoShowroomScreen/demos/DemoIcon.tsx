@@ -1,38 +1,38 @@
 /* eslint-disable react/jsx-key */
-import { ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import { Icon, iconRegistry, IconTypes, Text } from "../../../components"
-import { Demo } from "../DemoShowroomScreen"
-import { DemoUseCase } from "../DemoUseCase"
-import type { ThemedStyle } from "@/theme"
-import { $styles } from "@/theme"
+import { ImageStyle, TextStyle, View, ViewStyle } from 'react-native'
+import { Icon, iconRegistry, IconTypes, Text } from '../../../components'
+import { Demo } from '../DemoShowroomScreen'
+import { DemoUseCase } from '../DemoUseCase'
+import type { ThemedStyle } from '@/theme'
+import { $styles } from '@/theme'
 
 const $demoIconContainer: ThemedStyle<ViewStyle> = ({ spacing }) => ({
-  padding: spacing.xs,
+  padding: spacing.xs
 })
 
 const $iconTile: ThemedStyle<ViewStyle> = ({ spacing }) => ({
-  width: "33.333%",
-  alignItems: "center",
-  paddingVertical: spacing.xs,
+  width: '33.333%',
+  alignItems: 'center',
+  paddingVertical: spacing.xs
 })
 
 const $iconTileLabel: ThemedStyle<TextStyle> = ({ colors, spacing }) => ({
   marginTop: spacing.xxs,
-  color: colors.textDim,
+  color: colors.textDim
 })
 
 const $customIconContainer: ThemedStyle<ViewStyle> = ({ colors, spacing }) => ({
   padding: spacing.md,
-  backgroundColor: colors.palette.angry500,
+  backgroundColor: colors.palette.angry500
 })
 
 const $customIcon: ThemedStyle<ImageStyle> = ({ colors }) => ({
-  tintColor: colors.palette.neutral100,
+  tintColor: colors.palette.neutral100
 })
 
 export const DemoIcon: Demo = {
-  name: "Icon",
-  description: "demoIcon:description",
+  name: 'Icon',
+  description: 'demoIcon:description',
   data: ({ theme, themed }) => [
     <DemoUseCase
       name="demoIcon:useCase.icons.name"
@@ -40,7 +40,7 @@ export const DemoIcon: Demo = {
       layout="row"
       itemStyle={$styles.flexWrap}
     >
-      {Object.keys(iconRegistry).map((icon) => (
+      {Object.keys(iconRegistry).map(icon => (
         <View key={icon} style={themed($iconTile)}>
           <Icon icon={icon as IconTypes} color={theme.colors.tint} size={35} />
 
@@ -105,6 +105,6 @@ export const DemoIcon: Demo = {
         size={40}
         containerStyle={themed($customIconContainer)}
       />
-    </DemoUseCase>,
-  ],
+    </DemoUseCase>
+  ]
 }

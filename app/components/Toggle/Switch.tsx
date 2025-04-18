@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useCallback } from "react"
+import { useEffect, useMemo, useRef, useCallback } from 'react'
 import {
   Animated,
   Image,
@@ -7,30 +7,30 @@ import {
   StyleProp,
   TextStyle,
   View,
-  ViewStyle,
-} from "react-native"
+  ViewStyle
+} from 'react-native'
 
-import { $styles } from "@/theme"
-import { iconRegistry } from "@/components/Icon"
-import { isRTL } from "@/i18n"
-import { $inputOuterBase, BaseToggleInputProps, Toggle, ToggleProps } from "./Toggle"
-import { useAppTheme } from "@/utils/useAppTheme"
-import type { ThemedStyle } from "@/theme"
+import { $styles } from '@/theme'
+import { iconRegistry } from '@/components/Icon'
+import { isRTL } from '@/i18n'
+import { $inputOuterBase, BaseToggleInputProps, Toggle, ToggleProps } from './Toggle'
+import { useAppTheme } from '@/utils/useAppTheme'
+import type { ThemedStyle } from '@/theme'
 
-export interface SwitchToggleProps extends Omit<ToggleProps<SwitchInputProps>, "ToggleInput"> {
+export interface SwitchToggleProps extends Omit<ToggleProps<SwitchInputProps>, 'ToggleInput'> {
   /**
    * Switch-only prop that adds a text/icon label for on/off states.
    */
-  accessibilityMode?: "text" | "icon"
+  accessibilityMode?: 'text' | 'icon'
   /**
    * Optional style prop that affects the knob View.
    * Note: `width` and `height` rules should be points (numbers), not percentages.
    */
-  inputDetailStyle?: Omit<ViewStyle, "width" | "height"> & { width?: number; height?: number }
+  inputDetailStyle?: Omit<ViewStyle, 'width' | 'height'> & { width?: number; height?: number }
 }
 
 interface SwitchInputProps extends BaseToggleInputProps<SwitchToggleProps> {
-  accessibilityMode?: SwitchToggleProps["accessibilityMode"]
+  accessibilityMode?: SwitchToggleProps['accessibilityMode']
 }
 
 /**
@@ -44,7 +44,7 @@ export function Switch(props: SwitchToggleProps) {
     (toggleProps: SwitchInputProps) => (
       <SwitchInput {...toggleProps} accessibilityMode={accessibilityMode} />
     ),
-    [accessibilityMode],
+    [accessibilityMode]
   )
   return <Toggle accessibilityRole="switch" {...rest} ToggleInput={switchInput} />
 }
@@ -56,12 +56,12 @@ function SwitchInput(props: SwitchInputProps) {
     disabled,
     outerStyle: $outerStyleOverride,
     innerStyle: $innerStyleOverride,
-    detailStyle: $detailStyleOverride,
+    detailStyle: $detailStyleOverride
   } = props
 
   const {
     theme: { colors },
-    themed,
+    themed
   } = useAppTheme()
 
   const animate = useRef(new Animated.Value(on ? 1 : 0)) // Initial value is set based on isActive
@@ -71,7 +71,7 @@ function SwitchInput(props: SwitchInputProps) {
     Animated.timing(animate.current, {
       toValue: on ? 1 : 0,
       duration: 300,
-      useNativeDriver: true, // Enable native driver for smoother animations
+      useNativeDriver: true // Enable native driver for smoother animations
     }).start()
   }, [on])
 
@@ -79,46 +79,46 @@ function SwitchInput(props: SwitchInputProps) {
     Animated.timing(opacity.current, {
       toValue: on ? 1 : 0,
       duration: 300,
-      useNativeDriver: true,
+      useNativeDriver: true
     }).start()
   }, [on])
 
   const knobSizeFallback = 2
 
   const knobWidth = [$detailStyleOverride?.width, $switchDetail?.width, knobSizeFallback].find(
-    (v) => typeof v === "number",
+    v => typeof v === 'number'
   )
 
   const knobHeight = [$detailStyleOverride?.height, $switchDetail?.height, knobSizeFallback].find(
-    (v) => typeof v === "number",
+    v => typeof v === 'number'
   )
 
   const offBackgroundColor = [
     disabled && colors.palette.neutral400,
-    status === "error" && colors.errorBackground,
-    colors.palette.neutral300,
+    status === 'error' && colors.errorBackground,
+    colors.palette.neutral300
   ].filter(Boolean)[0]
 
   const onBackgroundColor = [
     disabled && colors.transparent,
-    status === "error" && colors.errorBackground,
-    colors.palette.secondary500,
+    status === 'error' && colors.errorBackground,
+    colors.palette.secondary500
   ].filter(Boolean)[0]
 
   const knobBackgroundColor = (function () {
     if (on) {
       return [
         $detailStyleOverride?.backgroundColor,
-        status === "error" && colors.error,
+        status === 'error' && colors.error,
         disabled && colors.palette.neutral600,
-        colors.palette.neutral100,
+        colors.palette.neutral100
       ].filter(Boolean)[0]
     } else {
       return [
         $innerStyleOverride?.backgroundColor,
         disabled && colors.palette.neutral600,
-        status === "error" && colors.error,
-        colors.palette.neutral200,
+        status === 'error' && colors.error,
+        colors.palette.neutral200
       ].filter(Boolean)[0]
     }
   })()
@@ -139,7 +139,7 @@ function SwitchInput(props: SwitchInputProps) {
     0) as number
 
   const outputRange =
-    Platform.OS === "web"
+    Platform.OS === 'web'
       ? isRTL
         ? [+(knobWidth || 0) + offsetRight, offsetLeft]
         : [offsetLeft, +(knobWidth || 0) + offsetRight]
@@ -147,7 +147,7 @@ function SwitchInput(props: SwitchInputProps) {
 
   const $animatedSwitchKnob = animate.current.interpolate({
     inputRange: [0, 1],
-    outputRange,
+    outputRange
   })
 
   return (
@@ -157,7 +157,7 @@ function SwitchInput(props: SwitchInputProps) {
           $themedSwitchInner,
           { backgroundColor: onBackgroundColor },
           $innerStyleOverride,
-          { opacity: opacity.current },
+          { opacity: opacity.current }
         ]}
       />
 
@@ -170,7 +170,7 @@ function SwitchInput(props: SwitchInputProps) {
           $detailStyleOverride,
           { transform: [{ translateX: $animatedSwitchKnob }] },
           { width: knobWidth, height: knobHeight },
-          { backgroundColor: knobBackgroundColor },
+          { backgroundColor: knobBackgroundColor }
         ]}
       />
     </View>
@@ -181,47 +181,47 @@ function SwitchInput(props: SwitchInputProps) {
  * @param {ToggleInputProps & { role: "on" | "off" }} props - The props for the `SwitchAccessibilityLabel` component.
  * @returns {JSX.Element} The rendered `SwitchAccessibilityLabel` component.
  */
-function SwitchAccessibilityLabel(props: SwitchInputProps & { role: "on" | "off" }) {
+function SwitchAccessibilityLabel(props: SwitchInputProps & { role: 'on' | 'off' }) {
   const { on, disabled, status, accessibilityMode, role, innerStyle, detailStyle } = props
 
   const {
-    theme: { colors },
+    theme: { colors }
   } = useAppTheme()
 
   if (!accessibilityMode) return null
 
-  const shouldLabelBeVisible = (on && role === "on") || (!on && role === "off")
+  const shouldLabelBeVisible = (on && role === 'on') || (!on && role === 'off')
 
   const $switchAccessibilityStyle: StyleProp<ViewStyle> = [
     $switchAccessibility,
-    role === "off" && { end: "5%" },
-    role === "on" && { left: "5%" },
+    role === 'off' && { end: '5%' },
+    role === 'on' && { left: '5%' }
   ]
 
   const color = (function () {
     if (disabled) return colors.palette.neutral600
-    if (status === "error") return colors.error
+    if (status === 'error') return colors.error
     if (!on) return innerStyle?.backgroundColor || colors.palette.secondary500
     return detailStyle?.backgroundColor || colors.palette.neutral100
   })()
 
   return (
     <View style={$switchAccessibilityStyle}>
-      {accessibilityMode === "text" && shouldLabelBeVisible && (
+      {accessibilityMode === 'text' && shouldLabelBeVisible && (
         <View
           style={[
-            role === "on" && $switchAccessibilityLine,
-            role === "on" && { backgroundColor: color },
-            role === "off" && $switchAccessibilityCircle,
-            role === "off" && { borderColor: color },
+            role === 'on' && $switchAccessibilityLine,
+            role === 'on' && { backgroundColor: color },
+            role === 'off' && $switchAccessibilityCircle,
+            role === 'off' && { borderColor: color }
           ]}
         />
       )}
 
-      {accessibilityMode === "icon" && shouldLabelBeVisible && (
+      {accessibilityMode === 'icon' && shouldLabelBeVisible && (
         <Image
           style={[$switchAccessibilityIcon, { tintColor: color }]}
-          source={role === "off" ? iconRegistry.hidden : iconRegistry.view}
+          source={role === 'off' ? iconRegistry.hidden : iconRegistry.view}
         />
       )}
     </View>
@@ -230,43 +230,43 @@ function SwitchAccessibilityLabel(props: SwitchInputProps & { role: "on" | "off"
 
 const $inputOuter: StyleProp<ViewStyle> = [
   $inputOuterBase,
-  { height: 32, width: 56, borderRadius: 16, borderWidth: 0 },
+  { height: 32, width: 56, borderRadius: 16, borderWidth: 0 }
 ]
 
 const $switchInner: ThemedStyle<ViewStyle> = ({ colors }) => ({
   borderColor: colors.transparent,
-  position: "absolute",
+  position: 'absolute',
   paddingStart: 4,
-  paddingEnd: 4,
+  paddingEnd: 4
 })
 
-const $switchDetail: SwitchToggleProps["inputDetailStyle"] = {
+const $switchDetail: SwitchToggleProps['inputDetailStyle'] = {
   borderRadius: 12,
-  position: "absolute",
+  position: 'absolute',
   width: 24,
-  height: 24,
+  height: 24
 }
 
 const $switchAccessibility: TextStyle = {
-  width: "40%",
-  justifyContent: "center",
-  alignItems: "center",
+  width: '40%',
+  justifyContent: 'center',
+  alignItems: 'center'
 }
 
 const $switchAccessibilityIcon: ImageStyle = {
   width: 14,
   height: 14,
-  resizeMode: "contain",
+  resizeMode: 'contain'
 }
 
 const $switchAccessibilityLine: ViewStyle = {
   width: 2,
-  height: 12,
+  height: 12
 }
 
 const $switchAccessibilityCircle: ViewStyle = {
   borderWidth: 2,
   width: 12,
   height: 12,
-  borderRadius: 6,
+  borderRadius: 6
 }

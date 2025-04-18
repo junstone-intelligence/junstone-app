@@ -1,8 +1,8 @@
-import { Pressable, PressableProps, ViewStyle, Platform } from "react-native"
-import Animated, { interpolate, interpolateColor, useAnimatedStyle } from "react-native-reanimated"
-import { useDrawerProgress } from "react-native-drawer-layout"
-import { isRTL } from "@/i18n"
-import { useAppTheme } from "@/utils/useAppTheme"
+import { Pressable, PressableProps, ViewStyle, Platform } from 'react-native'
+import Animated, { interpolate, interpolateColor, useAnimatedStyle } from 'react-native-reanimated'
+import { useDrawerProgress } from 'react-native-drawer-layout'
+import { isRTL } from '@/i18n'
+import { useAppTheme } from '@/utils/useAppTheme'
 
 interface DrawerIconButtonProps extends PressableProps {}
 
@@ -15,17 +15,17 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 export function DrawerIconButton(props: DrawerIconButtonProps) {
   const { ...PressableProps } = props
   const progress = useDrawerProgress()
-  const isWeb = Platform.OS === "web"
+  const isWeb = Platform.OS === 'web'
   const {
     theme: { colors },
-    themed,
+    themed
   } = useAppTheme()
 
   const animatedContainerStyles = useAnimatedStyle(() => {
     const translateX = interpolate(progress.value, [0, 1], [0, isRTL ? 60 : -60])
 
     return {
-      transform: [{ translateX }],
+      transform: [{ translateX }]
     }
   })
 
@@ -39,7 +39,7 @@ export function DrawerIconButton(props: DrawerIconButtonProps) {
       isWeb && isRTL
         ? { marginRight: marginStart }
         : {
-            marginLeft: marginStart,
+            marginLeft: marginStart
           }
 
     return {
@@ -47,7 +47,7 @@ export function DrawerIconButton(props: DrawerIconButtonProps) {
       backgroundColor,
       marginBottom,
       width,
-      transform: [{ rotate: `${rotate}deg` }],
+      transform: [{ rotate: `${rotate}deg` }]
     }
   })
 
@@ -57,7 +57,7 @@ export function DrawerIconButton(props: DrawerIconButtonProps) {
 
     return {
       backgroundColor,
-      width,
+      width
     }
   })
 
@@ -71,7 +71,7 @@ export function DrawerIconButton(props: DrawerIconButtonProps) {
       isWeb && isRTL
         ? { marginRight: marginStart }
         : {
-            marginLeft: marginStart,
+            marginLeft: marginStart
           }
 
     return {
@@ -79,7 +79,7 @@ export function DrawerIconButton(props: DrawerIconButtonProps) {
       backgroundColor,
       width,
       marginTop,
-      transform: [{ rotate: `${rotate}deg` }],
+      transform: [{ rotate: `${rotate}deg` }]
     }
   })
 
@@ -97,21 +97,21 @@ export function DrawerIconButton(props: DrawerIconButtonProps) {
 const barHeight = 2
 
 const $container: ViewStyle = {
-  alignItems: "center",
+  alignItems: 'center',
   height: 56,
-  justifyContent: "center",
-  width: 56,
+  justifyContent: 'center',
+  width: 56
 }
 
 const $topBar: ViewStyle = {
-  height: barHeight,
+  height: barHeight
 }
 
 const $middleBar: ViewStyle = {
   height: barHeight,
-  marginTop: 4,
+  marginTop: 4
 }
 
 const $bottomBar: ViewStyle = {
-  height: barHeight,
+  height: barHeight
 }

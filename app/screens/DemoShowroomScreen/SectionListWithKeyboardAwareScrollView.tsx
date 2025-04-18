@@ -1,7 +1,7 @@
-import { DEFAULT_BOTTOM_OFFSET } from "@/components"
-import { forwardRef, ReactElement, ReactNode, useCallback } from "react"
-import { ScrollViewProps, SectionList, SectionListProps } from "react-native"
-import { KeyboardAwareScrollView } from "react-native-keyboard-controller"
+import { DEFAULT_BOTTOM_OFFSET } from '@/components'
+import { forwardRef, ReactElement, ReactNode, useCallback } from 'react'
+import { ScrollViewProps, SectionList, SectionListProps } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 
 type SectionType<ItemType> = {
   name: string
@@ -27,7 +27,7 @@ function SectionListWithKeyboardAwareScrollView<ItemType = any>(
     contentContainerStyle,
     ...props
   }: SectionListWithKeyboardAwareScrollViewProps<ItemType>,
-  ref: React.Ref<SectionList<ItemType>>,
+  ref: React.Ref<SectionList<ItemType>>
 ): ReactElement {
   const defaultRenderScrollComponent = useCallback(
     (props: ScrollViewProps) => (
@@ -37,7 +37,7 @@ function SectionListWithKeyboardAwareScrollView<ItemType = any>(
         {...props}
       />
     ),
-    [contentContainerStyle, bottomOffset],
+    [contentContainerStyle, bottomOffset]
   )
 
   return (
@@ -52,5 +52,5 @@ function SectionListWithKeyboardAwareScrollView<ItemType = any>(
 export default forwardRef(SectionListWithKeyboardAwareScrollView) as <ItemType = any>(
   props: SectionListWithKeyboardAwareScrollViewProps<ItemType> & {
     ref?: React.Ref<SectionList<ItemType>>
-  },
+  }
 ) => ReactElement

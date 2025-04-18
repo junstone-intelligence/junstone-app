@@ -1,9 +1,9 @@
-import { Component, ErrorInfo, ReactNode } from "react"
-import { ErrorDetails } from "./ErrorDetails"
+import { Component, ErrorInfo, ReactNode } from 'react'
+import { ErrorDetails } from './ErrorDetails'
 
 interface Props {
   children: ReactNode
-  catchErrors: "always" | "dev" | "prod" | "never"
+  catchErrors: 'always' | 'dev' | 'prod' | 'never'
 }
 
 interface State {
@@ -33,7 +33,7 @@ export class ErrorBoundary extends Component<Props, State> {
     // Catch errors in any components below and re-render with error message
     this.setState({
       error,
-      errorInfo,
+      errorInfo
     })
 
     // You can also log error messages to an error reporting service here
@@ -54,9 +54,9 @@ export class ErrorBoundary extends Component<Props, State> {
   // Only enable if we're catching errors in the right environment
   isEnabled(): boolean {
     return (
-      this.props.catchErrors === "always" ||
-      (this.props.catchErrors === "dev" && __DEV__) ||
-      (this.props.catchErrors === "prod" && !__DEV__)
+      this.props.catchErrors === 'always' ||
+      (this.props.catchErrors === 'dev' && __DEV__) ||
+      (this.props.catchErrors === 'prod' && !__DEV__)
     )
   }
 

@@ -1,16 +1,16 @@
-import { useState, useEffect, useRef } from "react"
-import { BackHandler, Linking, Platform } from "react-native"
+import { useState, useEffect, useRef } from 'react'
+import { BackHandler, Linking, Platform } from 'react-native'
 import {
   NavigationState,
   PartialState,
-  createNavigationContainerRef,
-} from "@react-navigation/native"
-import Config from "../config"
-import type { PersistNavigationConfig } from "../config/config.base"
-import { useIsMounted } from "../utils/useIsMounted"
-import type { AppStackParamList, NavigationProps } from "./AppNavigator"
+  createNavigationContainerRef
+} from '@react-navigation/native'
+import Config from '../config'
+import type { PersistNavigationConfig } from '../config/config.base'
+import { useIsMounted } from '../utils/useIsMounted'
+import type { AppStackParamList, NavigationProps } from './AppNavigator'
 
-import * as storage from "../utils/storage"
+import * as storage from '../utils/storage'
 
 type Storage = typeof storage
 
@@ -53,7 +53,7 @@ const iosExit = () => false
 export function useBackButtonHandler(canExit: (routeName: string) => boolean) {
   // The reason we're using a ref here is because we need to be able
   // to update the canExit function without re-setting up all the listeners
-  const canExitRef = useRef(Platform.OS !== "android" ? iosExit : canExit)
+  const canExitRef = useRef(Platform.OS !== 'android' ? iosExit : canExit)
 
   useEffect(() => {
     canExitRef.current = canExit
@@ -86,10 +86,10 @@ export function useBackButtonHandler(canExit: (routeName: string) => boolean) {
     }
 
     // Subscribe when we come to life
-    BackHandler.addEventListener("hardwareBackPress", onBackPress)
+    BackHandler.addEventListener('hardwareBackPress', onBackPress)
 
     // Unsubscribe when we're done
-    return () => BackHandler.removeEventListener("hardwareBackPress", onBackPress)
+    return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress)
   }, [])
 }
 
@@ -100,9 +100,9 @@ export function useBackButtonHandler(canExit: (routeName: string) => boolean) {
  * @returns {boolean} - Whether to restore navigation state by default.
  */
 function navigationRestoredDefaultState(persistNavigation: PersistNavigationConfig) {
-  if (persistNavigation === "always") return false
-  if (persistNavigation === "dev" && __DEV__) return false
-  if (persistNavigation === "prod" && !__DEV__) return false
+  if (persistNavigation === 'always') return false
+  if (persistNavigation === 'dev' && __DEV__) return false
+  if (persistNavigation === 'prod' && !__DEV__) return false
 
   // all other cases, disable restoration by returning true
   return true
@@ -116,7 +116,7 @@ function navigationRestoredDefaultState(persistNavigation: PersistNavigationConf
  */
 export function useNavigationPersistence(storage: Storage, persistenceKey: string) {
   const [initialNavigationState, setInitialNavigationState] =
-    useState<NavigationProps["initialState"]>()
+    useState<NavigationProps['initialState']>()
   const isMounted = useIsMounted()
 
   const initNavState = navigationRestoredDefaultState(Config.persistNavigation)
@@ -150,7 +150,7 @@ export function useNavigationPersistence(storage: Storage, persistenceKey: strin
 
       // Only restore the state if app has not started from a deep link
       if (!initialUrl) {
-        const state = (await storage.load(persistenceKey)) as NavigationProps["initialState"] | null
+        const state = (await storage.load(persistenceKey)) as NavigationProps['initialState'] | null
         if (state) setInitialNavigationState(state)
       }
     } finally {
@@ -199,7 +199,7 @@ export function goBack() {
  * @returns {void}
  */
 export function resetRoot(
-  state: Parameters<typeof navigationRef.resetRoot>[0] = { index: 0, routes: [] },
+  state: Parameters<typeof navigationRef.resetRoot>[0] = { index: 0, routes: [] }
 ) {
   if (navigationRef.isReady()) {
     navigationRef.resetRoot(state)

@@ -14,46 +14,46 @@ if (__DEV__) {
   // Load Reactotron in development only.
   // Note that you must be using metro's `inlineRequires` for this to work.
   // If you turn it off in metro.config.js, you'll have to manually import it.
-  require("./devtools/ReactotronConfig.ts")
+  require('./devtools/ReactotronConfig.ts')
 }
-import "./utils/gestureHandler"
-import { initI18n } from "./i18n"
-import "./utils/ignoreWarnings"
-import { useFonts } from "expo-font"
-import { useEffect, useState } from "react"
-import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-context"
-import * as Linking from "expo-linking"
-import * as SplashScreen from "expo-splash-screen"
-import { useInitialRootStore } from "./models"
-import { AppNavigator, useNavigationPersistence } from "./navigators"
-import { ErrorBoundary } from "./screens/ErrorScreen/ErrorBoundary"
-import * as storage from "./utils/storage"
-import { customFontsToLoad } from "./theme"
-import Config from "./config"
-import { KeyboardProvider } from "react-native-keyboard-controller"
-import { loadDateFnsLocale } from "./utils/formatDate"
+import './utils/gestureHandler'
+import { initI18n } from './i18n'
+import './utils/ignoreWarnings'
+import { useFonts } from 'expo-font'
+import { useEffect, useState } from 'react'
+import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context'
+import * as Linking from 'expo-linking'
+import * as SplashScreen from 'expo-splash-screen'
+import { useInitialRootStore } from './models'
+import { AppNavigator, useNavigationPersistence } from './navigators'
+import { ErrorBoundary } from './screens/ErrorScreen/ErrorBoundary'
+import * as storage from './utils/storage'
+import { customFontsToLoad } from './theme'
+import Config from './config'
+import { KeyboardProvider } from 'react-native-keyboard-controller'
+import { loadDateFnsLocale } from './utils/formatDate'
 
-export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
+export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE'
 
 // Web linking configuration
-const prefix = Linking.createURL("/")
+const prefix = Linking.createURL('/')
 const config = {
   screens: {
     Login: {
-      path: "",
+      path: ''
     },
-    Welcome: "welcome",
+    Welcome: 'welcome',
     Demo: {
       screens: {
         DemoShowroom: {
-          path: "showroom/:queryIndex?/:itemIndex?",
+          path: 'showroom/:queryIndex?/:itemIndex?'
         },
-        DemoDebug: "debug",
-        DemoPodcastList: "podcast",
-        DemoCommunity: "community",
-      },
-    },
-  },
+        DemoDebug: 'debug',
+        DemoPodcastList: 'podcast',
+        DemoCommunity: 'community'
+      }
+    }
+  }
 }
 
 /**
@@ -65,7 +65,7 @@ export function App() {
   const {
     initialNavigationState,
     onNavigationStateChange,
-    isRestored: isNavigationStateRestored,
+    isRestored: isNavigationStateRestored
   } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY)
 
   const [areFontsLoaded, fontLoadError] = useFonts(customFontsToLoad)
@@ -102,7 +102,7 @@ export function App() {
 
   const linking = {
     prefixes: [prefix],
-    config,
+    config
   }
 
   // otherwise, we're ready to render the app

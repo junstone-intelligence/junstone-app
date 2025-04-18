@@ -1,20 +1,20 @@
-import { Link, RouteProp, useRoute } from "@react-navigation/native"
-import { FC, ReactElement, useCallback, useEffect, useRef, useState } from "react"
-import { Image, ImageStyle, Platform, SectionList, TextStyle, View, ViewStyle } from "react-native"
-import { Drawer } from "react-native-drawer-layout"
-import { type ContentStyle } from "@shopify/flash-list"
-import { ListItem, ListView, ListViewRef, Screen, Text } from "../../components"
-import { TxKeyPath, isRTL, translate } from "@/i18n"
-import { DemoTabParamList, DemoTabScreenProps } from "../../navigators/DemoNavigator"
-import type { Theme, ThemedStyle } from "@/theme"
-import { $styles } from "@/theme"
-import { useSafeAreaInsetsStyle } from "../../utils/useSafeAreaInsetsStyle"
-import * as Demos from "./demos"
-import { DrawerIconButton } from "./DrawerIconButton"
-import SectionListWithKeyboardAwareScrollView from "./SectionListWithKeyboardAwareScrollView"
-import { useAppTheme } from "@/utils/useAppTheme"
+import { Link, RouteProp, useRoute } from '@react-navigation/native'
+import { FC, ReactElement, useCallback, useEffect, useRef, useState } from 'react'
+import { Image, ImageStyle, Platform, SectionList, TextStyle, View, ViewStyle } from 'react-native'
+import { Drawer } from 'react-native-drawer-layout'
+import { type ContentStyle } from '@shopify/flash-list'
+import { ListItem, ListView, ListViewRef, Screen, Text } from '../../components'
+import { TxKeyPath, isRTL, translate } from '@/i18n'
+import { DemoTabParamList, DemoTabScreenProps } from '../../navigators/DemoNavigator'
+import type { Theme, ThemedStyle } from '@/theme'
+import { $styles } from '@/theme'
+import { useSafeAreaInsetsStyle } from '../../utils/useSafeAreaInsetsStyle'
+import * as Demos from './demos'
+import { DrawerIconButton } from './DrawerIconButton'
+import SectionListWithKeyboardAwareScrollView from './SectionListWithKeyboardAwareScrollView'
+import { useAppTheme } from '@/utils/useAppTheme'
 
-const logo = require("../../../assets/images/logo.png")
+const logo = require('../../../assets/images/logo.png')
 
 export interface Demo {
   name: string
@@ -32,9 +32,9 @@ const slugify = (str: string) =>
   str
     .toLowerCase()
     .trim()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "")
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '')
 
 const WebListItem: FC<DemoListItem> = ({ item, sectionIndex }) => {
   const sectionSlug = item.name.toLowerCase()
@@ -48,7 +48,7 @@ const WebListItem: FC<DemoListItem> = ({ item, sectionIndex }) => {
       >
         <Text preset="bold">{item.name}</Text>
       </Link>
-      {item.useCases.map((u) => {
+      {item.useCases.map(u => {
         const itemSlug = slugify(u)
 
         return (
@@ -81,7 +81,7 @@ const NativeListItem: FC<DemoListItem> = ({ item, sectionIndex, handleScroll }) 
           key={`section${sectionIndex}-${u}`}
           onPress={() => handleScroll?.(sectionIndex, index)}
           text={u}
-          rightIcon={isRTL ? "caretLeft" : "caretRight"}
+          rightIcon={isRTL ? 'caretLeft' : 'caretRight'}
         />
       ))}
     </View>
@@ -89,15 +89,15 @@ const NativeListItem: FC<DemoListItem> = ({ item, sectionIndex, handleScroll }) 
 }
 
 const ShowroomListItem = Platform.select({ web: WebListItem, default: NativeListItem })
-const isAndroid = Platform.OS === "android"
+const isAndroid = Platform.OS === 'android'
 
-export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
+export const DemoShowroomScreen: FC<DemoTabScreenProps<'DemoShowroom'>> =
   function DemoShowroomScreen(_props) {
     const [open, setOpen] = useState(false)
     const timeout = useRef<ReturnType<typeof setTimeout>>()
     const listRef = useRef<SectionList>(null)
-    const menuRef = useRef<ListViewRef<DemoListItem["item"]>>(null)
-    const route = useRoute<RouteProp<DemoTabParamList, "DemoShowroom">>()
+    const menuRef = useRef<ListViewRef<DemoListItem['item']>>(null)
+    const route = useRoute<RouteProp<DemoTabParamList, 'DemoShowroom'>>()
     const params = route.params
 
     const { themed, theme } = useAppTheme()
@@ -116,7 +116,7 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
           animated: true,
           itemIndex,
           sectionIndex,
-          viewPosition: 0.25,
+          viewPosition: 0.25
         })
       } catch (e) {
         console.error(e)
@@ -128,14 +128,14 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
       if (params !== undefined && Object.keys(params).length > 0) {
         const demoValues = Object.values(Demos)
         const findSectionIndex = demoValues.findIndex(
-          (x) => x.name.toLowerCase() === params.queryIndex,
+          x => x.name.toLowerCase() === params.queryIndex
         )
         let findItemIndex = 0
         if (params.itemIndex) {
           try {
             findItemIndex = demoValues[findSectionIndex]
               .data({ themed, theme })
-              .findIndex((u) => slugify(translate(u.props.name)) === params.itemIndex)
+              .findIndex(u => slugify(translate(u.props.name)) === params.itemIndex)
           } catch (err) {
             console.error(err)
           }
@@ -155,9 +155,9 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
           listRef.current?.scrollToLocation({
             animated: true,
             itemIndex: info.index,
-            sectionIndex: 0,
+            sectionIndex: 0
           }),
-        50,
+        50
       )
     }
 
@@ -165,7 +165,7 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
       return () => timeout.current && clearTimeout(timeout.current)
     }, [])
 
-    const $drawerInsets = useSafeAreaInsetsStyle(["top"])
+    const $drawerInsets = useSafeAreaInsetsStyle(['top'])
 
     return (
       <Drawer
@@ -173,21 +173,21 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
         onOpen={() => setOpen(true)}
         onClose={() => setOpen(false)}
         drawerType="back"
-        drawerPosition={isRTL ? "right" : "left"}
+        drawerPosition={isRTL ? 'right' : 'left'}
         renderDrawerContent={() => (
           <View style={themed([$drawer, $drawerInsets])}>
             <View style={themed($logoContainer)}>
               <Image source={logo} style={$logoImage} />
             </View>
-            <ListView<DemoListItem["item"]>
+            <ListView<DemoListItem['item']>
               ref={menuRef}
               contentContainerStyle={themed($listContentContainer)}
               estimatedItemSize={250}
-              data={Object.values(Demos).map((d) => ({
+              data={Object.values(Demos).map(d => ({
                 name: d.name,
-                useCases: d.data({ theme, themed }).map((u) => translate(u.props.name)),
+                useCases: d.data({ theme, themed }).map(u => translate(u.props.name))
               }))}
-              keyExtractor={(item) => item.name}
+              keyExtractor={item => item.name}
               renderItem={({ item, index: sectionIndex }) => (
                 <ShowroomListItem {...{ item, sectionIndex, handleScroll }} />
               )}
@@ -197,7 +197,7 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
       >
         <Screen
           preset="fixed"
-          safeAreaEdges={["top"]}
+          safeAreaEdges={['top']}
           contentContainerStyle={$styles.flex1}
           {...(isAndroid ? { KeyboardAvoidingViewProps: { behavior: undefined } } : {})}
         >
@@ -207,10 +207,10 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
             ref={listRef}
             contentContainerStyle={themed($sectionListContentContainer)}
             stickySectionHeadersEnabled={false}
-            sections={Object.values(Demos).map((d) => ({
+            sections={Object.values(Demos).map(d => ({
               name: d.name,
               description: d.description,
-              data: [d.data({ theme, themed })],
+              data: [d.data({ theme, themed })]
             }))}
             renderItem={({ item, index: sectionIndex }) => (
               <View>
@@ -244,47 +244,47 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
 
 const $drawer: ThemedStyle<ViewStyle> = ({ colors }) => ({
   backgroundColor: colors.background,
-  flex: 1,
+  flex: 1
 })
 
 const $listContentContainer: ThemedStyle<ContentStyle> = ({ spacing }) => ({
-  paddingHorizontal: spacing.lg,
+  paddingHorizontal: spacing.lg
 })
 
 const $sectionListContentContainer: ThemedStyle<ViewStyle> = ({ spacing }) => ({
-  paddingHorizontal: spacing.lg,
+  paddingHorizontal: spacing.lg
 })
 
 const $heading: ThemedStyle<ViewStyle> = ({ spacing }) => ({
-  marginBottom: spacing.xxxl,
+  marginBottom: spacing.xxxl
 })
 
 const $logoImage: ImageStyle = {
   height: 42,
-  width: 77,
+  width: 77
 }
 
 const $logoContainer: ThemedStyle<ViewStyle> = ({ spacing }) => ({
-  alignSelf: "flex-start",
-  justifyContent: "center",
+  alignSelf: 'flex-start',
+  justifyContent: 'center',
   height: 56,
-  paddingHorizontal: spacing.lg,
+  paddingHorizontal: spacing.lg
 })
 
 const $menuContainer: ThemedStyle<ViewStyle> = ({ spacing }) => ({
   paddingBottom: spacing.xs,
-  paddingTop: spacing.lg,
+  paddingTop: spacing.lg
 })
 
 const $demoItemName: ThemedStyle<TextStyle> = ({ spacing }) => ({
   fontSize: 24,
-  marginBottom: spacing.md,
+  marginBottom: spacing.md
 })
 
 const $demoItemDescription: ThemedStyle<TextStyle> = ({ spacing }) => ({
-  marginBottom: spacing.xxl,
+  marginBottom: spacing.xxl
 })
 
 const $demoUseCasesSpacer: ThemedStyle<ViewStyle> = ({ spacing }) => ({
-  paddingBottom: spacing.xxl,
+  paddingBottom: spacing.xxl
 })

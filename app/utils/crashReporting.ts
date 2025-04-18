@@ -2,20 +2,20 @@
  * If you're using Sentry
  *   Expo https://docs.expo.dev/guides/using-sentry/
  */
-// import * as Sentry from "@sentry/react-native"
+// import * as Sentry from '@sentry/react-native'
 
 /**
  * If you're using Crashlytics: https://rnfirebase.io/crashlytics/usage
  */
-// import crashlytics from "@react-native-firebase/crashlytics"
+// import crashlytics from '@react-native-firebase/crashlytics'
 
 /**
  * If you're using Bugsnag:
  *   RN   https://docs.bugsnag.com/platforms/react-native/)
  *   Expo https://docs.bugsnag.com/platforms/react-native/expo/
  */
-// import Bugsnag from "@bugsnag/react-native"
-// import Bugsnag from "@bugsnag/expo"
+// import Bugsnag from '@bugsnag/react-native'
+// import Bugsnag from '@bugsnag/expo'
 
 /**
  *  This is where you put your crash reporting service initialization code to call in `./app/app.tsx`
@@ -36,11 +36,11 @@ export enum ErrorType {
    * An error that would normally cause a red screen in dev
    * and force the user to sign out and restart.
    */
-  FATAL = "Fatal",
+  FATAL = 'Fatal',
   /**
    * An error caught by try/catch where defined using Reactotron.tron.error.
    */
-  HANDLED = "Handled",
+  HANDLED = 'Handled'
 }
 
 /**
@@ -49,7 +49,7 @@ export enum ErrorType {
 export const reportCrash = (error: Error, type: ErrorType = ErrorType.FATAL) => {
   if (__DEV__) {
     // Log to console and Reactotron in development
-    const message = error.message || "Unknown"
+    const message = error.message || 'Unknown'
     console.error(error)
     console.log(message, type)
   } else {

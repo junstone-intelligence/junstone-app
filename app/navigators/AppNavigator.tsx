@@ -4,16 +4,16 @@
  * Generally speaking, it will contain an auth flow (registration, login, forgot password)
  * and a "main" flow which the user will use once logged in.
  */
-import { NavigationContainer, NavigatorScreenParams } from "@react-navigation/native"
-import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack"
-import { observer } from "mobx-react-lite"
-import * as Screens from "@/screens"
-import Config from "../config"
-import { useStores } from "../models"
-import { DemoNavigator, DemoTabParamList } from "./DemoNavigator"
-import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
-import { useAppTheme, useThemeProvider } from "@/utils/useAppTheme"
-import { ComponentProps } from "react"
+import { NavigationContainer, NavigatorScreenParams } from '@react-navigation/native'
+import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack'
+import { observer } from 'mobx-react-lite'
+import * as Screens from '@/screens'
+import Config from '../config'
+import { useStores } from '../models'
+import { DemoNavigator, DemoTabParamList } from './DemoNavigator'
+import { navigationRef, useBackButtonHandler } from './navigationUtilities'
+import { useAppTheme, useThemeProvider } from '@/utils/useAppTheme'
+import { ComponentProps } from 'react'
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -52,11 +52,11 @@ const Stack = createNativeStackNavigator<AppStackParamList>()
 
 const AppStack = observer(function AppStack() {
   const {
-    authenticationStore: { isAuthenticated },
+    authenticationStore: { isAuthenticated }
   } = useStores()
 
   const {
-    theme: { colors },
+    theme: { colors }
   } = useAppTheme()
 
   return (
@@ -65,10 +65,10 @@ const AppStack = observer(function AppStack() {
         headerShown: false,
         navigationBarColor: colors.background,
         contentStyle: {
-          backgroundColor: colors.background,
-        },
+          backgroundColor: colors.background
+        }
       }}
-      initialRouteName={isAuthenticated ? "Welcome" : "Login"}
+      initialRouteName={isAuthenticated ? 'Welcome' : 'Login'}
     >
       {isAuthenticated ? (
         <>
@@ -95,7 +95,7 @@ export const AppNavigator = observer(function AppNavigator(props: NavigationProp
   const { themeScheme, navigationTheme, setThemeContextOverride, ThemeProvider } =
     useThemeProvider()
 
-  useBackButtonHandler((routeName) => exitRoutes.includes(routeName))
+  useBackButtonHandler(routeName => exitRoutes.includes(routeName))
 
   return (
     <ThemeProvider value={{ themeScheme, setThemeContextOverride }}>

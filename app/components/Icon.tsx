@@ -1,4 +1,4 @@
-import { ComponentType } from "react"
+import { ComponentType } from 'react'
 import {
   Image,
   ImageStyle,
@@ -7,9 +7,9 @@ import {
   TouchableOpacityProps,
   View,
   ViewProps,
-  ViewStyle,
-} from "react-native"
-import { useAppTheme } from "@/utils/useAppTheme"
+  ViewStyle
+} from 'react-native'
+import { useAppTheme } from '@/utils/useAppTheme'
 
 export type IconTypes = keyof typeof iconRegistry
 
@@ -42,7 +42,7 @@ interface IconProps extends TouchableOpacityProps {
   /**
    * An optional function to be called when the icon is pressed
    */
-  onPress?: TouchableOpacityProps["onPress"]
+  onPress?: TouchableOpacityProps['onPress']
 }
 
 /**
@@ -73,12 +73,12 @@ export function Icon(props: IconProps) {
     $imageStyleBase,
     { tintColor: color ?? theme.colors.text },
     size !== undefined && { width: size, height: size },
-    $imageStyleOverride,
+    $imageStyleOverride
   ]
 
   return (
     <Wrapper
-      accessibilityRole={isPressable ? "imagebutton" : undefined}
+      accessibilityRole={isPressable ? 'imagebutton' : undefined}
       {...WrapperProps}
       style={$containerStyleOverride}
     >
@@ -88,30 +88,30 @@ export function Icon(props: IconProps) {
 }
 
 export const iconRegistry = {
-  back: require("../../assets/icons/back.png"),
-  bell: require("../../assets/icons/bell.png"),
-  caretLeft: require("../../assets/icons/caretLeft.png"),
-  caretRight: require("../../assets/icons/caretRight.png"),
-  check: require("../../assets/icons/check.png"),
-  clap: require("../../assets/icons/demo/clap.png"),
-  community: require("../../assets/icons/demo/community.png"),
-  components: require("../../assets/icons/demo/components.png"),
-  debug: require("../../assets/icons/demo/debug.png"),
-  github: require("../../assets/icons/demo/github.png"),
-  heart: require("../../assets/icons/demo/heart.png"),
-  hidden: require("../../assets/icons/hidden.png"),
-  ladybug: require("../../assets/icons/ladybug.png"),
-  lock: require("../../assets/icons/lock.png"),
-  menu: require("../../assets/icons/menu.png"),
-  more: require("../../assets/icons/more.png"),
-  pin: require("../../assets/icons/demo/pin.png"),
-  podcast: require("../../assets/icons/demo/podcast.png"),
-  settings: require("../../assets/icons/settings.png"),
-  slack: require("../../assets/icons/demo/slack.png"),
-  view: require("../../assets/icons/view.png"),
-  x: require("../../assets/icons/x.png"),
+  back: require('../../assets/icons/back.png'),
+  bell: require('../../assets/icons/bell.png'),
+  caretLeft: require('../../assets/icons/caretLeft.png'),
+  caretRight: require('../../assets/icons/caretRight.png'),
+  check: require('../../assets/icons/check.png'),
+  clap: require('../../assets/icons/demo/clap.png'),
+  community: require('../../assets/icons/demo/community.png'),
+  components: require('../../assets/icons/demo/components.png'),
+  debug: require('../../assets/icons/demo/debug.png'),
+  github: require('../../assets/icons/demo/github.png'),
+  heart: require('../../assets/icons/demo/heart.png'),
+  hidden: require('../../assets/icons/hidden.png'),
+  ladybug: require('../../assets/icons/ladybug.png'),
+  lock: require('../../assets/icons/lock.png'),
+  menu: require('../../assets/icons/menu.png'),
+  more: require('../../assets/icons/more.png'),
+  pin: require('../../assets/icons/demo/pin.png'),
+  podcast: require('../../assets/icons/demo/podcast.png'),
+  settings: require('../../assets/icons/settings.png'),
+  slack: require('../../assets/icons/demo/slack.png'),
+  view: require('../../assets/icons/view.png'),
+  x: require('../../assets/icons/x.png')
 }
 
 const $imageStyleBase: ImageStyle = {
-  resizeMode: "contain",
+  resizeMode: 'contain'
 }

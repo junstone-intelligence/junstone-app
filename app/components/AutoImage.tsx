@@ -1,5 +1,5 @@
-import { useLayoutEffect, useState } from "react"
-import { Image, ImageProps, ImageURISource, Platform, PixelRatio } from "react-native"
+import { useLayoutEffect, useState } from 'react'
+import { Image, ImageProps, ImageURISource, Platform, PixelRatio } from 'react-native'
 
 export interface AutoImageProps extends ImageProps {
   /**
@@ -32,7 +32,7 @@ export function useAutoImage(
   headers?: {
     [key: string]: string
   },
-  dimensions?: [maxWidth?: number, maxHeight?: number],
+  dimensions?: [maxWidth?: number, maxHeight?: number]
 ): [width: number, height: number] {
   const [[remoteWidth, remoteHeight], setRemoteImageDimensions] = useState([0, 0])
   const remoteAspectRatio = remoteWidth / remoteHeight
@@ -54,7 +54,7 @@ export function useAutoImage(
     const aspectRatio = Math.min(maxWidth / remoteWidth, maxHeight / remoteHeight)
     return [
       PixelRatio.roundToNearestPixel(remoteWidth * aspectRatio),
-      PixelRatio.roundToNearestPixel(remoteHeight * aspectRatio),
+      PixelRatio.roundToNearestPixel(remoteHeight * aspectRatio)
     ]
   } else if (maxWidth) {
     return [maxWidth, PixelRatio.roundToNearestPixel(maxWidth / remoteAspectRatio)]
@@ -79,10 +79,10 @@ export function AutoImage(props: AutoImageProps) {
   const [width, height] = useAutoImage(
     Platform.select({
       web: (source?.uri as string) ?? (source as string),
-      default: source?.uri as string,
+      default: source?.uri as string
     }),
     headers,
-    [maxWidth, maxHeight],
+    [maxWidth, maxHeight]
   )
 
   return <Image {...ImageProps} style={[{ width, height }, props.style]} />

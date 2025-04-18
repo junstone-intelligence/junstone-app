@@ -5,18 +5,18 @@
  * See the [Backend API Integration](https://docs.infinite.red/ignite-cli/boilerplate/app/services/#backend-api-integration)
  * documentation for more details.
  */
-import { ApiResponse, ApisauceInstance, create } from "apisauce"
-import Config from "../../config"
-import { GeneralApiProblem, getGeneralApiProblem } from "./apiProblem"
-import type { ApiConfig, ApiFeedResponse } from "./api.types"
-import type { EpisodeSnapshotIn } from "../../models/Episode"
+import { ApiResponse, ApisauceInstance, create } from 'apisauce'
+import Config from '../../config'
+import { GeneralApiProblem, getGeneralApiProblem } from './apiProblem'
+import type { ApiConfig, ApiFeedResponse } from './api.types'
+import type { EpisodeSnapshotIn } from '../../models/Episode'
 
 /**
  * Configuring the apisauce instance.
  */
 export const DEFAULT_API_CONFIG: ApiConfig = {
   url: Config.API_URL,
-  timeout: 10000,
+  timeout: 10000
 }
 
 /**
@@ -36,18 +36,18 @@ export class Api {
       baseURL: this.config.url,
       timeout: this.config.timeout,
       headers: {
-        Accept: "application/json",
-      },
+        Accept: 'application/json'
+      }
     })
   }
 
   /**
    * Gets a list of recent React Native Radio episodes.
    */
-  async getEpisodes(): Promise<{ kind: "ok"; episodes: EpisodeSnapshotIn[] } | GeneralApiProblem> {
+  async getEpisodes(): Promise<{ kind: 'ok'; episodes: EpisodeSnapshotIn[] } | GeneralApiProblem> {
     // make the api call
     const response: ApiResponse<ApiFeedResponse> = await this.apisauce.get(
-      `api.json?rss_url=https%3A%2F%2Ffeeds.simplecast.com%2FhEI_f9Dx`,
+      `api.json?rss_url=https%3A%2F%2Ffeeds.simplecast.com%2FhEI_f9Dx`
     )
 
     // the typical ways to die when calling an api
@@ -62,16 +62,16 @@ export class Api {
 
       // This is where we transform the data into the shape we expect for our MST model.
       const episodes: EpisodeSnapshotIn[] =
-        rawData?.items.map((raw) => ({
-          ...raw,
+        rawData?.items.map(raw => ({
+          ...raw
         })) ?? []
 
-      return { kind: "ok", episodes }
+      return { kind: 'ok', episodes }
     } catch (e) {
       if (__DEV__ && e instanceof Error) {
         console.error(`Bad data: ${e.message}\n${response.data}`, e.stack)
       }
-      return { kind: "bad-data" }
+      return { kind: 'bad-data' }
     }
   }
 }

@@ -1,6 +1,6 @@
-import i18n from "i18next"
-import type { TOptions } from "i18next"
-import { TxKeyPath } from "./i18n"
+import i18n from 'i18next'
+import type { TOptions } from 'i18next'
+import { TxKeyPath } from './i18n'
 
 /**
  * Translates text.
@@ -18,7 +18,7 @@ import { TxKeyPath } from "./i18n"
  *
  * Usage:
  * ```ts
- * import { translate } from "./i18n"
+ * import { translate } from './i18n'
  *
  * translate("common:ok", { name: "world" })
  * // => "Hello world!"
